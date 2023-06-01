@@ -12,8 +12,8 @@ function handleBMI(weight, height) {
 }
 
 function main() {
-    const userWeight = readline.question('What’s your weight? ')
-    const userHeight = readline.question('What’s your height? ')
+    const userWeight = readline.questionFloat('What’s your weight? ')
+    const userHeight = readline.questionInt('What’s your height? ')
     const bmi = handleBMI(userWeight, userHeight);
 
     console.log(`BMI: ${bmi.toFixed(2)}`);
