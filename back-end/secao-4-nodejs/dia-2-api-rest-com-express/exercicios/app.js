@@ -1,7 +1,29 @@
 const express = require('express');
+const fs = require('fs').promises;
+const path = require('path');
 
 const app = express();
 
-app.get('/', (req, res) => res.status(200).send('<h1>Hello World</h1>'));
+const moviesPath = path.resolve(__dirname, './movies.json')
+
+const readFile = async () => {
+    try {
+        const data = await fs.readFile(moviesPath);
+        return JSON.parse(data);
+    } catch (error) {
+        console.error(error);
+    } 
+
+};
+
+app.get('/movies/:id', async (req, res) => {
+    try{
+        const movies = await readFile();
+        const movie = movies.find(({ id }) => id === Number(req.params.id));
+        res.status(200).json(movie);
+    } catch (error) {
+        console.error(error);
+    }
+});
 
 module.exports = app;
